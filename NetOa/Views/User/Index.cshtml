@@ -1,0 +1,368 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+    .row1 {
+        display: block;
+    }
+
+    .am-form-group label {
+        color: aliceblue;
+    }
+
+    .tsuess {
+        right: -23%;
+        width: 35%;
+    }
+
+    .row2 {
+        display: none;
+        padding: 20%;
+        padding-top: 10rem;
+        width: 100%;
+        z-index: 100;
+        position: absolute;
+    }
+
+    .btrow {
+        width: 100%;
+    }
+</style>
+
+<div class="row-content am-cf">
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="widget-head am-cf">
+                    <div class="widget-title  am-cf">会员列表</div>
+
+
+                </div>
+
+
+
+                <div class="row2">
+
+
+                    <form class="am-form am-form-horizontal" id="editID" method="post" action="/Web/ModifyUser">
+                        <div class="am-form-group">
+                            <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">用户名</label>
+                            <div class="am-u-sm-10">
+                                <input type="text" name="UserName" id="user" placeholder="输入你的用户名">
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">密码</label>
+                            <div class="am-u-sm-10">
+                                <input type="password" name="Password" id="pass" placeholder="修改密码">
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">姓名</label>
+                            <div class="am-u-sm-10">
+                                <input type="text" name="Name" id="xingming" placeholder="输入你的姓名">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">联系方式</label>
+                            <div class="am-u-sm-10">
+                                <input type="text" name="phone" id="mobile" placeholder="输入您的联系方式">
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">部门</label>
+                            <div class="am-u-sm-10">
+                                <select id="bumen" name="DepartmentID"></select>
+                                <span class="am-form-caret"></span>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">角色</label>
+                            <div class="am-u-sm-10">
+                                <select id="jiaose" name="RoleID"></select>
+                                <span class="am-form-caret"></span>
+                            </div>
+                        </div>
+
+                        <div class="am-form-group">
+                            <div class="am-btn-group am-btn-group btrow">
+                                <input type="hidden" name="id" id="uid">
+                                <button type="button" onclick="editClick()" class="am-btn am-btn-primary tpl-btn-bg-color-success tsuess">确定</button>
+                                <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success tsuess qerr">取消</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <script type="text/javascript">
+                        function editClick() {
+                            var formNode = $("#editID");
+                            $.post(formNode.attr("action"), formNode.serialize(), function (info) {
+                                console.log(info);
+                                if (info.code === 1) {
+                                    setTimeout(function () {
+                                        history.go(0)
+                                    }, 1000);
+                                }
+                                layer.msg(info.msg);
+                            })
+                        }
+
+                    </script>
+
+
+                </div>
+                <div class="widget-body  am-fr" id="row1">
+
+                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+                        <div class="am-form-group">
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <a href="/Register"><button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button></a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="am-u-sm-6 am-u-md-3 am-u-lg-3">
+                        <div class="am-form-group tpl-table-list-select">
+                            <select data-am-selected="{btnSize: 'sm'}" id="bumen">
+                                <option value="option1">所有部门</option>
+                                <option value="option2">管理员</option>
+                                <option value="option3">数码产品</option>
+                                <option value="option3">笔记本电脑</option>
+                                <option value="option3">平板电脑</option>
+                                <option value="option3">只能手机</option>
+                                <option value="option3">超极本</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="am-u-sm-6 am-u-md-3 am-u-lg-3">
+                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                            <input type="text" class="am-form-field ">
+                            <span class="am-input-group-btn">
+                                <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="am-u-sm-12">
+                        <table class="am-table am-table-compact am-table-striped tpl-table-black ">
+                            <thead>
+                                <tr>
+
+                                    <th>用户名</th>
+                                    <th>联系方式</th>
+                                    <th>所在部门</th>
+                                    <th>所属角色</th>
+                                    <th>时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="tempList"> </tbody>
+                            <!-- more data -->
+
+
+
+
+
+
+
+                        </table>
+                    </div>
+
+                    <div class="am-u-lg-12 am-cf">
+                        <div class="am-fr">
+
+                            <ul class="am-pagination tpl-pagination">
+                                <li class="am-disabled"><a href="#">«</a></li>
+                                <li class="am-active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">»</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function edit(i) {
+        document.getElementById("row1").style.filter = "blur(3px)";
+        $(".row2").show();
+        object = data[i];
+        $("#user").val(object.userName);
+        $("#pass").val(object.password);
+        $("#xingming").val(object.name);
+        $("#mobile").val(object.phone);
+        $("#uid").val(object.uid);
+        $("#bumen").val(object.departmentID);
+        $("#jiaose").val(object.roleID);
+
+
+
+        console.log(data[i]);
+    }
+
+
+
+    $(".qerr").click(function () {
+        $(".row2").hide();
+        document.getElementById("row1").style.filter = "blur(0px)";
+    });
+
+
+
+    function deleteClick(userId) {
+        layer.confirm('您确定要删除该用户吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            $.ajax({
+                method: 'POST',
+                url: '/Web/RemoveUser',
+                data: { userID: userId },
+                success: function (info) {
+                    if (info.code == 1) {
+                        setTimeout(function () {  
+                            history.go(0) 
+                        }, 1000);
+                    }
+                    layer.msg(info.msg);
+                },
+                error: function (error) {
+                    layer.msg(error);
+
+                }
+
+            })
+
+        }, function () {
+
+        });
+
+    }
+</script>
+
+
+<!--ajax模板部署数据-->
+<script id="tempTemplate" type="text/x-jquery-tmpl">
+    {{each(i,item) data}}
+    <tr>
+        <td class="am-text-middle">${i+1}:${ item.name} </td>
+        <td class="am-text-middle"> ${ item.phone}</td>
+        <td class="am-text-middle">${item.departMentName} </td>
+        <td class="am-text-middle">${ item.roleName} </td>
+        <td class="am-text-middle">2016-09-26</td>
+        <td class="am-text-middle">
+            <div class="tpl-table-black-operation">
+                <a href="javascript:edit( ${i} )" id="edit">
+                    <i class="am-icon-pencil"></i> 编辑用户
+                </a>
+
+                <a href="javascript:;" class="tpl-table-black-operation-del" onclick="deleteClick(${ item.uid })">
+                    <i class="am-icon-trash"></i> 删除
+                </a>
+            </div>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+
+<script id="RolesTemplate" type="text/x-jquery-tmpl">
+    {{each(i,item) data}}
+    <option value="${ item.id}">${ item.roleName}</option>
+    {{/each}}
+</script>
+<script id="DepartmentTemplate" type="text/x-jquery-tmpl">
+    {{each(i,item) data}}
+    <option value="${ item.id}">${ item.departmentName}</option>
+    {{/each}}
+</script>
+
+<script type="text/javascript">
+    //var data =null;
+    $(function () {
+        $.ajax({
+            method: 'POST',
+            url: '/Web/QueryUser',
+            success: function (info) {
+                if (info.code === 1) {
+                    console.log(info.data);
+                    data = info.data;
+                    $("#tempTemplate").tmpl(info).appendTo('#tempList');
+                }
+                //layer.msg(info.msg);
+            },
+            error: function (error) {
+                layer.msg(error);
+
+            }
+
+        })
+
+        $.ajax({
+            method: 'POST',
+            url: '/Web/GetRoles',
+            success: function (info) {
+                if (info.code === 1) {
+                    console.log(info.data);
+
+                    $("#RolesTemplate").tmpl(info).appendTo('#jiaose');
+
+                }
+                //layer.msg(info.msg);
+            },
+            error: function (error) {
+                layer.msg(error);
+
+            }
+        })
+
+        $.ajax({
+            method: 'POST',
+            url: '/Web/GetDepartment',
+            success: function (info) {
+                if (info.code === 1) {
+                    console.log(info.data);
+                    $("#DepartmentTemplate").tmpl(info).appendTo('#bumen');
+                }
+                //layer.msg(info.msg);
+            },
+            error: function (error) {
+                layer.msg(error);
+
+            }
+        })
+    })
+</script>
+
+
+
+
+
+
+

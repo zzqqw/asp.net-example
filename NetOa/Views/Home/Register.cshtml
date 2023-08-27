@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.NoTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NetOA注册中心</title>
+
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="~/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="~/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="~/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="~/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="~/assets/css/app.css">
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/lib/layui2.3/layui.js"></script>
+    <script src="~/assets/js/layui_all.js"></script>
+</head>
+
+<body data-type="login">
+    <script src="~/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+        <div class="tpl-skiner">
+            <div class="tpl-skiner-toggle am-icon-cog">
+            </div>
+            <div class="tpl-skiner-content">
+                <div class="tpl-skiner-content-title">
+                    选择主题
+                </div>
+                <div class="tpl-skiner-content-bar">
+                    <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                    <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                </div>
+            </div>
+        </div>
+        <div class="tpl-login">
+            <div class="tpl-login-content">
+                <div class="tpl-login-title">注册用户</div>
+                <span class="tpl-login-content-info">
+                    创建一个新的用户
+                </span>
+
+
+                <form action="@Url.Action("Register")" method="post" class="am-form tpl-form-line-form">
+                    @*<div class="am-form-group">
+
+            <input type="text" class="tpl-form-input"  placeholder="邮箱">
+        </div>*@
+
+                    <div class="am-form-group">
+                        <input type="text" name="UserName" class="tpl-form-input" placeholder="用户名">
+                    </div>
+
+                    <div class="am-form-group">
+                        <input type="password" name="Password" class="tpl-form-input" placeholder="请输入密码">
+                    </div>
+
+                    <input type="text" name="RoleID" class="tpl-form-input" value="1">
+                    <input type="text" name="DepartmentID" class="tpl-form-input" value="1">
+
+                    <div class="am-form-group">
+                        <input type="password" name="password_two" class="tpl-form-input" placeholder="再次输入密码">
+                    </div>
+
+                    <div class="am-form-group tpl-login-remember-me">
+                        <input id="remember-me" type="checkbox">
+                        <label for="remember-me">
+                            我已阅读并同意 <a href="javascript:;">《用户注册协议》</a>
+                        </label>
+
+                    </div>
+
+                    <div class="am-form-group">
+
+                        <input type="button" id="sub" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn" value="提交" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="~/assets/js/amazeui.min.js"></script>
+
+    <script>
+        $("#sub").click(function () { 
+            var url = $("form").attr("action");
+            var formdata = $("form").serialize()
+            $.post(url, formdata, function (info) {
+                console.log(info);
+                if (info.code === 1) {
+                    setTimeout(function () {
+                        location.href = info.url;
+                    }, 1000);
+
+                }
+                layer.msg(info.msg);
+
+            })
+
+        })
+
+      
+
+    </script>
+</body>
+
+</html>
